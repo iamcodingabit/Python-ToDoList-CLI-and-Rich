@@ -1,19 +1,27 @@
 import sys
+###
+# todo add "superiority complex"
+# todo remove 1
+# todo edit 2 "Skiwhoa kasual"
+# todo finish 3 "werewrwerewrwrwrwrwr"
+# todo help
+###
 
 def main():
     todolist = []
     
-    menulist = [
-        "1. Add task",
-        "2. Remove task",
-        "3. Edit task",
-        "0. Quit"
-    ]
+    menulist = (
+        "Add task",
+        "Edit task",
+        "Remove task",
+    )
+
     task = ""
     active = True
-        
+    command = ""
+
     print("Welcome to the Obligatory To Do List App!")
-    
+
     while(active):    
         ### LISTING OUT ALL THE TASKS
         if(len(todolist)>0):
@@ -23,16 +31,17 @@ def main():
         
         print("What would you like to do?")
         for i in range(len(menulist)):
-            print(f"{menulist[i]}")    
-        
+            print(f"{i+1}. {menulist[i]}")
+        print("0. Quit")
+
         choice = input("\n>> I would like to (Type the number): ")
 
-        if choice == '1':
-            task = addTask();
+        if "Add".lower() in menulist[int(choice)-1].lower():
+            task = addTask()
             print(f">> You've added: {task}")
-            todolist.append(task);
+            todolist.append(task)
             
-        elif choice == '2':
+        elif "Remove".lower() in menulist[int(choice)-1].lower():
             if(len(todolist) > 0):
                 taskindex = removeTask(todolist)-1
                 removedtask = todolist[taskindex]
@@ -42,20 +51,20 @@ def main():
             else:
                 print("\n>> You have no task to remove! Please add a task first ^^!\n")
                 
-        elif choice == '3':
+        elif "Edit".lower() in menulist[int(choice)-1].lower():
             taskindex = editTask(todolist)-1
-            newtask = input(">> What would you like the new task to be? ")
+            newtask = input(">> What would you like the new task to be? \n")
             todolist[taskindex] = newtask
             
         elif choice == '0':
             print("All in a day's work, good byeeeee ^^")
-            active = False;
+            active = False
             sys.exit()
             
 ### Operation functions! Can this be a util class? 
 def addTask():
     task = input("What task would you like to add? ")
-    return task;
+    return task
 
 def removeTask(todolist):
     print("Which task would you like to remove?")
@@ -63,16 +72,18 @@ def removeTask(todolist):
     
     choice = input("Which would you like to remove? ")
     return int(choice)
-    
+
+def finishTask(todolist):
+    print("You've finished: ")
+
 def editTask(todolist):
     listTask(todolist)
-    task = input("Which task would you like to edit? ");
-    return int(task);
+    task = input("Which task would you like to edit? ")
+    return int(task)
     
 def listTask(listitem):
     for i in range(len(listitem)):
-        print(f"{i+1} {listitem[i]}")
-
+        print(f"{i+1}. {listitem[i]}")
 
 if __name__ == "__main__":
     app = main()
