@@ -30,8 +30,10 @@ def main():
                 addTask(todolist, command)
             case "remove":
                 removeTask(todolist, command.partition(" ")[2])
-            case "finish":
-                finishTask(todolist, command.partition(" ")[2])
+            case "cross":
+                crossTask(todolist, command.partition(" ")[2])
+            case "uncross":
+                uncrossTask(todolist, command.partition(" ")[2])
             case "edit":
                 editTask(todolist, command.partition(" ")[2])
             case "list":
@@ -54,21 +56,24 @@ def addTask(todolist, command):
         todolist.append(x)
 
 def removeTask(todolist, command):
-    tasksToAdd = command.split(", ")
-    print(tasksToAdd)
-    for x in range(len(tasksToAdd)):
-        todolist[int(tasksToAdd[x])-1] = ""
+    tasksToRemove = command.split(", ")
+    for x in range(len(tasksToRemove)):
+        todolist[int(tasksToRemove[x])-1] = ""
 
     for x in todolist:
         if "" in todolist:
             todolist.remove("")
         
 
-def finishTask(todolist, command):
-    tasksToAdd = command.split(", ")
-    print(tasksToAdd)
-    for x in range(len(tasksToAdd)):
-        todolist[int(tasksToAdd[x])-1] = f"\033[9m{todolist[int(tasksToAdd[x])-1]}\033[0m"
+def crossTask(todolist, command):
+    tasksToCross = command.split(", ")
+    for x in range(len(tasksToCross)):
+        todolist[int(tasksToCross[x])-1] = f"\033[9m{todolist[int(tasksToCross[x])-1]}\033[0m"
+
+def uncrossTask(todolist, command):
+    taskToUncross = command.split(", ")
+    for x in range(len(taskToUncross)):
+        todolist[int(taskToUncross[x])-1] = todolist[int(taskToUncross[x])-1].replace("\033[9m", "\033[0m")
 
 def editTask(todolist, commandArgs):
     taskIndex = int(commandArgs.partition(" ")[0])-1
