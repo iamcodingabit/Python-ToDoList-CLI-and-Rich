@@ -1,4 +1,5 @@
 import sys
+from rich import print
 
 def main():
     todolist = []
@@ -65,11 +66,11 @@ def main():
         ### LISTING OUT ALL THE TASKS
         print()
         if(len(todolist)>0):
-            print("### YOUR TASKS ###")
+            print("[bold magenta]### YOUR TASKS ###[/bold magenta]", ":vampire", locals())
             listTask(commandArgs)
         else:
             print("You have no tasks!")
-            print("Type \"add [what you need to do]\" (without brackets) to add your first task!")
+            print("Type \"add (what you need to do)\" (without brackets) to add your first task!")
             print("Example: add Clean up room")
         print()
         
